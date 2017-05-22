@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim
+END
+dim.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim.h
+END
+dim.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim.hxx
+END
+dim_jni.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim_jni.h
+END
+sllist.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/sllist.hxx
+END
+dllist.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dllist.hxx
+END
+dic.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dic.h
+END
+dic.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dic.hxx
+END
+dis.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dis.h
+END
+dis.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dis.hxx
+END
+dim_common.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim_common.h
+END
+dim_core.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim_core.hxx
+END
+tokenstring.hxx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/tokenstring.hxx
+END
+dim_tcpip.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/reps/srudcs/!svn/ver/56/PHOS_FEE_DIM/dim/dim/dim_tcpip.h
+END
