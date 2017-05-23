@@ -16,6 +16,8 @@ cd ~/PHOSControl_5
 
 # STU configuration and SOR sync
 cd ~/PHOS_STU_DIM
+export DIM_DNS_NODE=localhost
+
 ./dim_stu_command /STU_PHOS/Configure
 sleep 1
 
