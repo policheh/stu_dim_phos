@@ -11,6 +11,7 @@
 #include <fstream> 
 #include <math.h>
 #include <time.h>
+#include <bitset>
 
 //#define _SLOW_DIM
 #define _STEP_DURATION 10
@@ -225,7 +226,8 @@ class myCmd: public DimServer
  
  
   void commandHandler();
-
+  bool readTRUconfig(bitset<28> &bs, int type, int sru);
+  
 public:
 
   TSTU_API STU_API;
@@ -374,6 +376,9 @@ public:
   // The constructor creates the Commands
   myCmd( );
 
+  //Calculate L0/region mask from TRU configs.
+  bool CalculateL0Mask(unsigned int &mask);
+  
 	int cnt_packet_failure[nb_PORT];//HIROKI
 
 };//end of class myCmd
@@ -746,7 +751,16 @@ void myCmd::commandHandler()
 
       L0_mask_int = (unsigned int)array[12];
       global_region = array[11];
-      
+     
+      unsigned int maskL0;
+
+      if(CalculateL0Mask(maskL0)) {
+	L0_mask_int = maskL0;
+	Configure_struc->L0mask = L0_mask_int;
+	Configure_struc->region = L0_mask_int;
+	global_region = L0_mask_int;
+      }
+
       status_string="Configuration received values: ";	
       oss<<dec<<Configure_struc->G_A        ; status_string+="\nGamma_A: "        + oss.str(); oss.str("");
       oss<<dec<<Configure_struc->G_B        ; status_string+="\nGamma_B: "        + oss.str(); oss.str("");
@@ -3166,7 +3180,60 @@ myCmd::myCmd( )
 	}
 }//constructor
 
+bool myCmd::CalculateL0Mask(unsigned int &L0mask)
+{
+  
+  bitset<28> bs;
+  
+  for(int iSRU=1; iSRU<=14; iSRU++) {
+    if(!readTRUconfig(bs, 0, iSRU)) return false; // TRU00
+    if(!readTRUconfig(bs, 2, iSRU)) return false; // TRU20   
+  }
+  
+  L0mask = bs.to_ulong();
+  return true;
+}
 
+bool myCmd::readTRUconfig(bitset<28> &bs, int type, int iSRU)
+{  
+  int mod,part,dtc,tru;
+  std::string tmp,bad;
+  char filename[80];
+  
+  if(type==0) tru = 2*iSRU - 1;
+  if(type==2) tru = 2*iSRU;
+  
+  if(iSRU==1) { mod=1; part=2; } // M1-2
+  if(iSRU==2) { mod=1; part=3; } // M1-3
+  if(iSRU==3) { mod=2; part=0; } // M2-0
+  if(iSRU==4) { mod=2; part=1; } // M2-1
+  if(iSRU==5) { mod=2; part=2; } // M2-2
+  if(iSRU==6) { mod=2; part=3; } // M2-3
+  if(iSRU==7) { mod=3; part=0; } // M3-0
+  if(iSRU==8) { mod=3; part=1; } // M3-1
+  if(iSRU==9) { mod=3; part=2; } // M3-2
+  if(iSRU==10){ mod=3; part=3; } // M3-3
+  if(iSRU==11){ mod=4; part=0; } // M4-0
+  if(iSRU==12){ mod=4; part=1; } // M4-1
+  if(iSRU==13){ mod=4; part=2; } // M4-2
+  if(iSRU==14){ mod=4; part=3; } // M4-3
+  
+  sprintf(filename,"M%d-%d/TRUparam_TRU%d0.dat",mod,part,type);
+  printf("Reading TRU%.2d ports configuration from file %s\n",tru,filename);
+  
+  fstream f;
+
+  f.open(filename);
+  if(!f.is_open()) return false;
+  
+  f>>tmp>>dtc>>tmp>>bad;
+  printf("   TRUreadout %s\n",bad.c_str());
+  
+  if(!strcmp(bad.c_str(),"good")) { bs[tru-1] = true; }
+  else { bs[tru-1] = false; }
+  
+  return true;
+}
 
 
 

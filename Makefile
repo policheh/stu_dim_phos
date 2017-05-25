@@ -25,6 +25,10 @@ dim_stu_command : dim_stu_command.c
 clean: 
 	rm -f $(bobjects)
 	rm -f *.o
+	rm -f M*-* 
 
 distclean: 
 	rm -f ./*~
+
+install: all
+	ln -s $(HOME)/PHOSControl_5/M*-* ./
