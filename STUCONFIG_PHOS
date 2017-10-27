@@ -1,13 +1,13 @@
-0
-0
-400
-0
-0
-250
-0
-0
-200
-1
-62
-fe7fb7d
-fe7fb7d
+G_A_high  0
+G_B_high  0
+G_C_high  400
+G_A_mid   0
+G_B_mid   0
+G_C_mid   250
+G_A_low   0
+G_B_low   0
+G_C_low   200
+GetRawData  1
+L1_G_delay  62
+RegionEnable  auto
+L0mask        auto

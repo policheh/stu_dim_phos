@@ -716,17 +716,25 @@ void myCmd::commandHandler()
       ifstream     CONFIGFILE;
       CONFIGFILE.open("STUCONFIG",ifstream::in);
       CONFIGFILE.clear();
+
       int i=0;
       unsigned int array[13];
       string line;
+      unsigned int maskL0;
+
       if(CONFIGFILE.is_open()){
 	while(getline(CONFIGFILE,line)) {
-	  if(i < 11)
-	    array[i] = atoi(line.c_str());
+	  char name[80];
+	  if(i < 11) {
+	    sscanf(line.c_str(),"%s %d",name,&array[i]);
+	  }
 	  else {
-	    stringstream ss;
-	    ss << std::hex << line;
-	    ss >> array[i];
+	    if(line.find("auto") != std::string::npos) {
+	      CalculateL0Mask(maskL0);
+	      array[i] = maskL0;
+	    }
+	    else 
+	      sscanf(line.c_str(),"%s %x",name,&array[i]);
 	  }
 	  printf("array[%d]=%u\n", i, array[i]);
 	  i++;	  
@@ -751,16 +759,7 @@ void myCmd::commandHandler()
 
       L0_mask_int = (unsigned int)array[12];
       global_region = array[11];
-     
-      unsigned int maskL0;
-
-      if(CalculateL0Mask(maskL0)) {
-	L0_mask_int = maskL0;
-	Configure_struc->L0mask = L0_mask_int;
-	Configure_struc->region = L0_mask_int;
-	global_region = L0_mask_int;
-      }
-
+      
       status_string="Configuration received values: ";	
       oss<<dec<<Configure_struc->G_A        ; status_string+="\nGamma_A: "        + oss.str(); oss.str("");
       oss<<dec<<Configure_struc->G_B        ; status_string+="\nGamma_B: "        + oss.str(); oss.str("");
